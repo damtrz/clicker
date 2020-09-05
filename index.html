@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script>
+            
+            let moneyPoints = Number(localStorage.moneyPoints);
+            let ptsPerSec = 0;
+            let ptsPerClick = 1;
+            
+            let moneyCounter = "";
+            if(localStorage.moneyPoints == "NaN" || localStorage.moneyPoints == undefined)
+                {
+                    localStorage.moneyPoints = 0;
+                    moneyPoints = Number(localStorage.moneyPoints);
+                }
+            function Load(storeditem, callbackelse)
+            {
+                if(storeditem == "NaN" || storeditem == undefined)
+                    {
+                        
+                    }
+                else
+                    {
+                        // callbackelse();
+                    }
+            }
+            //window.onload = () => {
+            //Load(localStorage.upg1L, () => document.getElementById("upg1").childNodes[13].innerHTML = localStorage.upg1L);
+            
+            //}
+            function moneyUpdate()
+            {
+                document.getElementById('moneypoints').innerHTML = Math.floor(moneyPoints);
+                
+            }
+            // function autosave()
+            //{
+           //     localStorage.setItem("moneyPoints", moneyPoints);
+           //     localStorage.setItem("upg1L", upg1.level);
+            //}
+            function moneyPerTenth()
+            {
+                moneyPoints += upg1.totaleffect / 10 + upg2.totaleffect / 10 + upg3.totaleffect / 10 + upg4.totaleffect / 10;
+            }
+            setInterval(moneyPerTenth, 100);
+            setInterval(moneyUpdate,100);
+            // setInterval(autosave, 20000);
+            function moneyClick()
+            {
+                moneyPoints += ptsPerClick;
+            }
+            
+            function BuyBuilding(building)
+            {
+                if(moneyPoints >= building.cost)
+                    {
+                        moneyPoints -= building.cost;
+                        building.cost = building.cost * 1.30 * building.costmultiplier;
+                        building.level += 1;
+                        // building.effect = building.effect * 1.10 * building.effectmultiplier;
+                        building.totaleffect += building.effect;
+                        
+                        document.getElementById(building.string).childNodes[7].innerHTML = Math.round(building.cost);
+                        document.getElementById(building.string).childNodes[9].innerHTML = building.totaleffect.toFixed(2);
+                        document.getElementById(building.string).childNodes[13].innerHTML = building.level;
+                        document.getElementById(building.string).childNodes[11].innerHTML = building.effect.toFixed(2);
+                        autosave();
+                    }
+            }
+            
+            function BuyUpgrade(upgr)
+            {
+                switch(upgr)
+                {
+                    case "upg1":
+                        if(moneyPoints >= 100)
+                        {
+                            moneyPoints = moneyPoints - 100;
+                            upg1.effectmultiplier += 0.1;
+                            document.getElementById("upg1").style = "display:none;";
+                            upg1.effect = upg1.baseeffect * upg1.effectmultiplier;
+                            upg1.totaleffect = upg1.effect * upg1.level;
+                            document.getElementById("upg1").childNodes[11].innerHTML = upg1.effect.toFixed(2);
+                            document.getElementById("upg1").childNodes[9].innerHTML = upg1.totaleffect.toFixed(2);
+                        }
+                    break;
+                    case "upg2":
+                        if(moneyPoints >= 300)
+                        {
+                            moneyPoints = moneyPoints - 300;
+                            upg1.effectmultiplier += 0.5;
+                            document.getElementById("upg2").style = "display:none;";
+                            upg1.effect = upg1.baseeffect * upg1.effectmultiplier;
+                            upg1.totaleffect = upg1.effect * upg1.level;
+                            document.getElementById("upg1").childNodes[11].innerHTML = upg1.effect.toFixed(2);
+                            document.getElementById("upg1").childNodes[9].innerHTML = upg1.totaleffect.toFixed(2);
+                        }
+                    break;
+                    case "upg3":
+                        if(moneyPoints >= 400)
+                        {
+                            moneyPoints = moneyPoints - 400;
+                            upg2.effectmultiplier += 0.3;
+                            document.getElementById("upg3").style = "display:none;";
+                            upg2.effect = upg2.baseeffect * upg2.effectmultiplier;
+                            upg2.totaleffect = upg2.effect * upg2.level;
+                            document.getElementById("upg2").childNodes[11].innerHTML = upg2.effect.toFixed(2);
+                            document.getElementById("upg2").childNodes[9].innerHTML = upg2.totaleffect.toFixed(2);
+                        }
+                    break;
+                    case "upg4":
+                        if(moneyPoints >= 1000)
+                        {
+                            moneyPoints = moneyPoints - 1000;
+                            upg2.effectmultiplier += 0.4;
+                            document.getElementById("upg4").style = "display:none;";
+                            upg2.effect = upg2.baseeffect * upg2.effectmultiplier;
+                            upg2.totaleffect = upg2.effect * upg2.level;
+                            document.getElementById("upg2").childNodes[11].innerHTML = upg2.effect.toFixed(2);
+                            document.getElementById("upg2").childNodes[9].innerHTML = upg2.totaleffect.toFixed(2);
+                        }
+                    break;
+                    case "upg5":
+                        if(moneyPoints >= 1500)
+                        {
+                            moneyPoints = moneyPoints - 1500;
+                            upg2.effectmultiplier += 0.5;
+                            document.getElementById("upg5").style = "display:none;";
+                            upg2.effect = upg2.baseeffect * upg2.effectmultiplier;
+                            upg2.totaleffect = upg2.effect * upg2.level;
+                            document.getElementById("upg2").childNodes[11].innerHTML = upg2.effect.toFixed(2);
+                            document.getElementById("upg2").childNodes[9].innerHTML = upg2.totaleffect.toFixed(2);
+                        }
+                    break;
+                    case "upg6":
+                        if(moneyPoints >= 5000)
+                        {
+                            moneyPoints = moneyPoints - 5000;
+                            upg3.effectmultiplier += 0.3;
+                            document.getElementById("upg6").style = "display:none;";
+                            upg3.effect = upg3.baseeffect * upg3.effectmultiplier;
+                            upg3.totaleffect = upg3.effect * upg3.level;
+                            document.getElementById("upg3").childNodes[11].innerHTML = upg3.effect.toFixed(2);
+                            document.getElementById("upg3").childNodes[9].innerHTML = upg3.totaleffect.toFixed(2);
+                        }
+                    break;
+                    case "upg7":
+                        if(moneyPoints >= 7500)
+                        {
+                            moneyPoints = moneyPoints - 7500;
+                            upg3.effectmultiplier += 0.5;
+                            document.getElementById("upg7").style = "display:none;";
+                            upg3.effect = upg3.baseeffect * upg3.effectmultiplier;
+                            upg3.totaleffect = upg3.effect * upg3.level;
+                            document.getElementById("upg3").childNodes[11].innerHTML = upg3.effect.toFixed(2);
+                            document.getElementById("upg3").childNodes[9].innerHTML = upg3.totaleffect.toFixed(2);
+                        }
+                    break;
+                    case "upg8":
+                        if(moneyPoints >= 30000)
+                        {
+                            moneyPoints = moneyPoints - 30000;
+                            upg4.effectmultiplier += 0.3;
+                            document.getElementById("upg8").style = "display:none;";
+                            upg4.effect = upg4.baseeffect * upg4.effectmultiplier;
+                            upg4.totaleffect = upg4.effect * upg4.level;
+                            document.getElementById("upg4").childNodes[11].innerHTML = upg4.effect.toFixed(2);
+                            document.getElementById("upg4").childNodes[9].innerHTML = upg4.totaleffect.toFixed(2);
+                        }
+                    break;
+                    case "upg9":
+                        if(moneyPoints >= 50000)
+                        {
+                            moneyPoints = moneyPoints - 50000;
+                            upg4.effectmultiplier += 0.6;
+                            document.getElementById("upg9").style = "display:none;";
+                            upg4.effect = upg4.baseeffect * upg4.effectmultiplier;
+                            upg4.totaleffect = upg4.effect * upg4.level;
+                            document.getElementById("upg4").childNodes[11].innerHTML = upg4.effect.toFixed(2);
+                            document.getElementById("upg4").childNodes[9].innerHTML = upg4.totaleffect.toFixed(2);
+                        }
+                    break;
+                }
+            }
+            function UpgradeTooltip(upgr)
+            {
+                switch(upgr)
+                {
+                    case "upg1":
+                        document.getElementById("upgTooltip").innerHTML = "Name: Upgrade 1 <br>Cost: 100 <br>Effect: Increases Building 1's points per second by 20%";
+                    break;
+                    case "upg2":
+                        document.getElementById("upgTooltip").innerHTML = "Name: Upgrade 2 <br>Cost: 300 <br>Effect: Increases Building 1's points per second by 50%";
+                    break;
+                    case "upg3":
+                        document.getElementById("upgTooltip").innerHTML = "Name: Upgrade 3 <br>Cost: 400 <br>Effect: Increases Building 2's points per second by 30%";
+                    break;
+                    case "upg4":
+                        document.getElementById("upgTooltip").innerHTML = "Name: Upgrade 4 <br>Cost: 1000 <br>Effect: Increases Building 2's points per second by 40%";
+                    break;
+                    case "upg5":
+                        document.getElementById("upgTooltip").innerHTML = "Name: Upgrade 5 <br>Cost: 1500 <br>Effect: Increases Building 2's points per second by 50%";
+                    break;
+                    case "upg6":
+                        document.getElementById("upgTooltip").innerHTML = "Name: Upgrade 6 <br>Cost: 5000 <br>Effect: Increases Building 3's points per second by 30%";
+                    break;
+                    case "upg7":
+                        document.getElementById("upgTooltip").innerHTML = "Name: Upgrade 7 <br>Cost: 7500 <br>Effect: Increases Building 3's points per second by 50%";
+                    break;
+                    case "upg8":
+                        document.getElementById("upgTooltip").innerHTML = "Name: Upgrade 8 <br>Cost: 30000 <br>Effect: Increases Building 4's points per second by 30%";
+                    break;
+                    case "upg9":
+                        document.getElementById("upgTooltip").innerHTML = "Name: Upgrade 9 <br>Cost: 50000 <br>Effect: Increases Building 4's points per second by 60%";
+                    break;
+                    case "upg10":
+                        document.getElementById("upgTooltip").innerHTML = "Name: Upgrade 10 <br>Cost: 200000 <br>Effect: Increases Building 5's points per second by 50%";
+                    break;
+                }
+            }
+            let upg1 = {
+                string: "upg1",
+                cost: 30,
+                effect: 0.5,
+                baseeffect: 0.5,
+                totaleffect: 0,
+                level: 0,
+                costmultiplier: 1,
+                effectmultiplier: 1
+            }
+            let upg2 = {
+                string: "upg2",
+                cost: 200,
+                effect: 3,
+                baseeffect: 3,
+                totaleffect: 0,
+                level: 0,
+                costmultiplier: 1,
+                effectmultiplier: 1
+            }
+            let upg3 = {
+                string: "upg3",
+                cost: 3000,
+                effect: 15,
+                baseeffect: 15,
+                totaleffect: 0,
+                level: 0,
+                costmultiplier: 1,
+                effectmultiplier: 1
+            }
+            let upg4 = {
+                string: "upg4",
+                cost: 25000,
+                effect: 70,
+                baseeffect: 70,
+                totaleffect: 0,
+                level: 0,
+                costmultiplier: 1,
+                effectmultiplier: 1
+            }
+            
+        </script>
+        <style>
+            body {
+                background-image: linear-gradient(to top, #333, #555);
+                margin:0;
+                color: #aaa;
+            }
+            #moneyImg
+            {
+                position: absolute;
+                display: block;
+                transition: 0.5s;
+            }
+            #moneyImg:hover {
+                -webkit-box-shadow: 0px 0px 100px 0px rgba(255,0,0,1);
+                -moz-box-shadow: 0px 0px 100px 0px rgba(255,0,0,1);
+                box-shadow: 0px 0px 100px 0px rgba(255,0,0,1);
+            }
+            #moneypoints
+            {
+                text-align: center;
+            }
+            #money
+            {
+                position: absolute;
+                display: flex;
+                flex-direction: column;
+                margin-left: 30%;
+                left: -150px;
+                margin-top:50vh;
+                
+                top: -170px;
+                cursor:pointer;
+            }
+            #points
+            {
+                position: absolute;
+                top:300px;
+                width:300px;
+                
+            }
+            #rightmenu
+            {
+                float:right;
+                height:95vh;
+                width:40%;
+                border: solid 1px;
+                background-color: #2d2d2d;
+            }
+            
+            #buildings
+            {
+                height: 40vh;
+                overflow: scroll;
+                position: relative;
+            }
+            .building
+            {
+                height:70px;
+                font-size: 13px;
+                position: relative;
+            }
+            .buildingimg
+            {
+                height:60px;
+                width:60px;
+                margin-right:5px;
+                display:inline-block;
+                cursor: pointer;
+            }
+            .buildingname
+            {
+                position: absolute;
+                display:inline;
+               
+            }
+            .buildingcost
+            {
+                position:relative;
+                display:inline-block;
+                bottom:32px;
+                right:50px;
+                width:0px;
+                height:0px;
+            }
+            .buildingeffect
+            {
+                display:inline;
+                position:absolute;
+                top:31px;
+            }
+            .buildingtotaleffect
+            {
+                display:inline;
+                position: absolute;
+                bottom:5px;
+            }
+            .buildinglevel
+            {
+                position:absolute;
+                right:0px;
+                top:0px;
+                margin-top:20px;
+                font-size: 20px;
+            }
+            #upg1level
+            {
+                
+            }
+            .label
+            {
+                position:relative;
+                display:inline-block;
+                bottom:1px;
+            }
+            
+            #upgrades
+            {
+                height:40vh;
+                border: solid 1px gray;
+                overflow: scroll;
+                overflow-x: hidden;
+            }
+            .upgrade
+            {
+                width:60px;
+                height:60px;
+                padding: 10px;
+                display: inline-block;
+                cursor: pointer;
+            }
+            
+            .upgradebought
+            {
+                display:none;
+            }
+            #upgTooltip
+            {
+                
+            }
+        </style>
+    </head>
+    
+    <body>
+        <div id="totalmps">
+            
+        </div>
+        <div id="money">
+                <img src="img/money.jpg" id="moneyImg" onclick="moneyClick()">
+                <div id="points">
+                    <div id="moneypoints">
+                        0
+                    </div>
+                </div>
+            </div>
+            <div id="rightmenu">
+                <div id="buildings">
+                    <div class="building" id="upg1">
+                        <img class="buildingimg" src="img/build/b1.png" onclick="BuyBuilding(upg1)">
+                        <div class="buildingname"> Building 1</div>
+                        <div class="label">Cost: <br>Total points per sec: <br>Points per sec: </div>
+                        
+                        <div class="buildingcost"> 30</div>
+                        <div class="buildingeffect">0</div>
+                        <div class="buildingtotaleffect">0.5</div>
+                        <div class="buildinglevel" id="upg1level">0</div>
+                    </div>
+                    <div class="building" id="upg2">
+                        <img class="buildingimg" src="img/build/b2.png" onclick="BuyBuilding(upg2)">
+                        <div class="buildingname"> Building 2</div>
+                        <div class="label">Cost: <br>Total points per sec: <br>Points per sec: </div>
+                        
+                        <div class="buildingcost"> 200</div>
+                        <div class="buildingeffect">0</div>
+                        <div class="buildingtotaleffect">3</div>
+                        <div class="buildinglevel">0</div>
+                    </div>
+                    <div class="building" id="upg3">
+                        <img class="buildingimg" src="img/build/b3.png" onclick="BuyBuilding(upg3)">
+                        <div class="buildingname"> Building 3</div>
+                        <div class="label">Cost: <br>Total points per sec: <br>Points per sec: </div>
+                        
+                        <div class="buildingcost"> 3000</div>
+                        <div class="buildingeffect">0</div>
+                        <div class="buildingtotaleffect">15</div>
+                        <div class="buildinglevel">0</div>
+                    </div>
+                    <div class="building" id="upg4">
+                        <img class="buildingimg" src="img/build/b4.png" onclick="BuyBuilding(upg4)">
+                        <div class="buildingname"> Building 4</div>
+                        <div class="label">Cost: <br>Total points per sec: <br>Points per sec: </div>
+                        
+                        <div class="buildingcost"> 25000</div>
+                        <div class="buildingeffect">0</div>
+                        <div class="buildingtotaleffect">50</div>
+                        <div class="buildinglevel">0</div>
+                    </div>
+                </div>
+                
+                
+                
+                <div id="upgrades">
+                    <div class="upgrade" id="upg1">
+                        <img onclick="BuyUpgrade('upg1')" onmouseover="UpgradeTooltip('upg1')" src="img/upg/upg1.png" style="height:100%; width:100%; display:block;">
+                    </div>
+                    <div class="upgrade" id="upg2" >
+                        <img onclick="BuyUpgrade('upg2')" onmouseover="UpgradeTooltip('upg2')" src="img/upg/upg2.png" style="height:100%; width:100%; display:block;">
+                        
+                    </div>
+                    <div class="upgrade" id="upg3">
+                        <img onclick="BuyUpgrade('upg3')" onmouseover="UpgradeTooltip('upg3')" src="img/upg/upg3.png" style="height:100%; width:100%; display:block;">
+                        
+                    </div>
+                    <div class="upgrade" id="upg4">
+                        <img onclick="BuyUpgrade('upg4')" onmouseover="UpgradeTooltip('upg4')" src="img/upg/upg4.png" style="height:100%; width:100%; display:block;">
+                    </div>
+                    <div class="upgrade" id="upg5">
+                        <img onclick="BuyUpgrade('upg5')" onmouseover="UpgradeTooltip('upg5')" src="img/upg/upg5.png" style="height:100%; width:100%; display:block;">
+                    </div>
+                    <div class="upgrade" id="upg6">
+                        <img onclick="BuyUpgrade('upg6')" onmouseover="UpgradeTooltip('upg6')" src="img/upg/upg6.png" style="height:100%; width:100%; display:block;">
+                    </div>
+                    <div class="upgrade" id="upg7">
+                        <img onclick="BuyUpgrade('upg7')" onmouseover="UpgradeTooltip('upg7')" src="img/upg/upg7.png" style="height:100%; width:100%; display:block;">
+                    </div>
+                    <div class="upgrade" id="upg8">
+                        <img onclick="BuyUpgrade('upg8')" onmouseover="UpgradeTooltip('upg8')" src="img/upg/upg8.png" style="height:100%; width:100%; display:block;">
+                    </div>
+                    <div class="upgrade" id="upg9">
+                        <img onclick="BuyUpgrade('upg9')" onmouseover="UpgradeTooltip('upg9')" src="img/upg/upg9.png" style="height:100%; width:100%; display:block;">
+                    </div>
+                </div>
+                <div id="upgTooltip">
+                    
+                </div>
+        </div>
+                
+    </body>
+</html>
